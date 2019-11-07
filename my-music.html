@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>API请求</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<style>
+    .search {
+		margin: 20px auto 20px 400px;
+	}
+    #input {
+    	border-right: none;
+    }
+</style>
+
+<body>
+    <div class="search">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" id="input" class="form-control" placeholder="请输入歌名/歌手">
+                <span class="input-group-btn">
+                    <button class="btn btn-success">搜 索</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="aplayer"></div>
+    <script>
+    $('.btn').click(function() {
+        $.ajax({
+            url: 'https://api.apiopen.top/searchMusic',
+            type: 'GET',
+            data: {
+                name: $('#input').val()
+            },
+            datatype: 'json',
+            success: function(result) {
+                var data = JSON.stringify(result);
+                var songs = JSON.parse(data).result;
+
+                const ap = new APlayer({
+                    container: document.getElementById('aplayer'),
+                    order: 'random',
+                    preload: 'auto',
+                    audio: [{
+                        name: songs[0].title,
+                        artist: songs[0].author,
+                        url: songs[0].url,
+                        cover: songs[0].pic
+                    }, {
+                        name: songs[1].title,
+                        artist: songs[1].author,
+                        url: songs[1].url,
+                        cover: songs[1].pic
+                    }, {
+                        name: songs[2].title,
+                        artist: songs[2].author,
+                        url: songs[2].url,
+                        cover: songs[2].pic
+                    }, {
+                        name: songs[3].title,
+                        artist: songs[3].author,
+                        url: songs[3].url,
+                        cover: songs[3].pic
+                    }, {
+                        name: songs[4].title,
+                        artist: songs[4].author,
+                        url: songs[4].url,
+                        cover: songs[4].pic
+                    },{
+                        name: songs[5].title,
+                        artist: songs[5].author,
+                        url: songs[5].url,
+                        cover: songs[5].pic
+                    },{
+                        name: songs[6].title,
+                        artist: songs[6].author,
+                        url: songs[6].url,
+                        cover: songs[6].pic
+                    },{
+                        name: songs[7].title,
+                        artist: songs[7].author,
+                        url: songs[7].url,
+                        cover: songs[7].pic
+                    },{
+                        name: songs[8].title,
+                        artist: songs[8].author,
+                        url: songs[8].url,
+                        cover: songs[8].pic
+                    },{
+                        name: songs[9].title,
+                        artist: songs[9].author,
+                        url: songs[9].url,
+                        cover: songs[9].pic
+                    }]
+                });
+            }
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+        window.onload = function(){
+            //屏蔽键盘事件
+            document.onkeydown = function (){
+                var e = window.event || arguments[0];
+                //F12
+                if(e.keyCode == 123){
+                    return false;
+                //Ctrl+Shift+I
+                }else if((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)){
+                    return false;
+                //Shift+F10
+                }else if((e.shiftKey) && (e.keyCode == 121)){
+                    return false;
+                //Ctrl+U
+                }else if((e.ctrlKey) && (e.keyCode == 85)){
+                    return false;
+                }
+            };
+            //屏蔽鼠标右键
+            document.oncontextmenu = function (){
+                return false;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
